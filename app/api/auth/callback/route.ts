@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient, setAuthCookies } from "@insforge/sdk/ssr";
+import { saveAuthenticatedUser } from "@/lib/insforge/users";
 
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("insforge_code");
@@ -22,6 +23,15 @@ export async function GET(request: NextRequest) {
 
   if (error || !data?.accessToken) {
     return NextResponse.redirect(new URL("/sign-in?error=exchange_failed", request.url));
+  }
+
+  const { error: profileError } = await saveAuthenticatedUser(
+    data.user,
+    data.accessToken
+  );
+
+  if (profileError) {
+    return NextResponse.redirect(new URL("/sign-in?error=profile_save_failed", request.url));
   }
 
   const response = NextResponse.redirect(new URL("/", request.url));

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createServerClient, setAuthCookies } from "@insforge/sdk/ssr";
 import { getAppUrl } from "@/lib/insforge/server";
+import { saveAuthenticatedUser } from "@/lib/insforge/users";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -39,6 +40,18 @@ export async function POST(request: Request) {
 
   if (!data?.accessToken) {
     return Response.json(payload);
+  }
+
+  const { error: profileError } = await saveAuthenticatedUser(
+    data.user,
+    data.accessToken
+  );
+
+  if (profileError) {
+    return Response.json(
+      { message: profileError.message ?? "Could not save user profile." },
+      { status: 500 }
+    );
   }
 
   const response = NextResponse.json(payload);
