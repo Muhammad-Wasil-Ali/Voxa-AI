@@ -31,7 +31,7 @@ export const dashboardFeatures: DashboardFeature[] = [
   },
   {
     slug: "avatar",
-    name: "Avatar",
+    name: "AI Avatars",
     description:
       "Design presenter identities and visual styles that match each brand, campaign, or audience.",
     href: "/dashboard/avatar",

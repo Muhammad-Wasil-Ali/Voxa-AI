@@ -43,7 +43,7 @@ const navItems = [
   { name: "Home", href: "/dashboard", icon: Home },
   { name: "AI Video Agent", href: "/dashboard/ai-video-agent", icon: Clapperboard },
   { name: "AI Video Avatar", href: "/dashboard/ai-video-avatar", icon: Video },
-  { name: "Avatar", href: "/dashboard/avatar", icon: UserRound },
+  { name: "AI Avatars", href: "/dashboard/avatar", icon: UserRound },
   { name: "AI Voice Cloning", href: "/dashboard/ai-voice-cloning", icon: AudioLines },
   { name: "My Library", href: "/dashboard/my-library", icon: Library },
 ];
